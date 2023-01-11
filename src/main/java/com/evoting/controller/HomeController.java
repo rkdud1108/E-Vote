@@ -17,7 +17,7 @@ public class HomeController {
     public String home(HttpServletRequest request){
 
         HttpSession session =request.getSession();
-        Member mem = (Member) session.getAttribute("loginUser");
+        Member mem = (Member)session.getAttribute("loginUser");
         if(mem!=null){
             System.out.println(mem.getId());
         }

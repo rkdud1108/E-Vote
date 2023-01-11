@@ -1,8 +1,7 @@
 package com.evoting.controller.dto;
 
-import com.evoting.domain.Agenda;
 import com.evoting.domain.Member;
-import com.evoting.domain.Role;
+import com.evoting.domain.enums.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +29,4 @@ public class MemberDto {
                 .role(role)
                 .build();
     }
-
-
 }

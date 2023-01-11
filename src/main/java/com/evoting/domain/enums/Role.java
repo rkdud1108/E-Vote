@@ -1,4 +1,4 @@
-package com.evoting.domain;
+package com.evoting.domain.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

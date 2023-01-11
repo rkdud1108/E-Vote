@@ -35,7 +35,7 @@ public class MemeberController {
     }
 
     //회원 목록 조회
-    @GetMapping(value = "/members/list")
+    @GetMapping(value = "/members")
     public List<MemberDto> memberList(Model model){
         List<MemberDto> result = memberService.findAll();
         return result;
@@ -49,9 +49,9 @@ public class MemeberController {
         if(memberService.login(memberDto)){
             Member nowMem = memberService.findOne(memberDto.getName());
             session.setAttribute("loginUser", nowMem);
-            return "redirect:/";
+            return "login Success";
         }
-        return "members/memberLogin";
+        return "login Fail";
     }
 
     //회원 로그아웃

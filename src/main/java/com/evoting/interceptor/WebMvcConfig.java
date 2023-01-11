@@ -9,8 +9,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyInterceptor())
-                .addPathPatterns("/admin/**") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
-                .excludePathPatterns("/login","/resources/**","/css/**","/images/**","/js/**","/errors/**"); // 해당 경로는 인터셉터가 가로채지 않는다.
+//        registry.addInterceptor(new MyInterceptor())
+//                .addPathPatterns("/**") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
+//                .excludePathPatterns("/login","/members/**","/admin/**"
+//                        ,"/resources/**","/css/**","/images/**","/js/**","/errors/**","/error/**"); // 해당 경로는 인터셉터가 가로채지 않는다.
+//
+//        registry.addInterceptor(new AdminInterceptor())
+//                .addPathPatterns("/admin/**") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
+//                .excludePathPatterns("/login","/resources/**","/css/**","/images/**","/js/**","/errors/**"); // 해당 경로는 인터셉터가 가로채지 않는다.
     }
 }

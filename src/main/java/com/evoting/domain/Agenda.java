@@ -1,12 +1,14 @@
 package com.evoting.domain;
 
+import com.evoting.domain.enums.AgendaStatus;
+import com.evoting.domain.enums.AgendaType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -20,18 +22,29 @@ public class Agenda {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member writer;
+
     private String title;
     private String contents;
 
-    @NotNull(message = "status 값은 필수 값입니다.")
     @Enumerated(EnumType.STRING)
     private AgendaStatus agendaStatus;
 
+    @Enumerated(EnumType.STRING)
+    private AgendaType agendaType;
+
+    private Long maxCount;
+
+    @OneToMany(mappedBy = "agenda")
+    private List<Vote> votes;
+
     @Builder
-    public Agenda(Long id, Member writer, String title, String contents){
+    public Agenda(Long id, Member writer, String title, String contents, AgendaStatus agendaStatus, AgendaType agendaType, Long maxCount){
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.contents = contents;
+        this.agendaStatus = agendaStatus;
+        this.agendaType = agendaType;
+        this.maxCount = maxCount;
     }
 }

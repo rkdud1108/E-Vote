@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class MyInterceptor implements HandlerInterceptor {
+public class AdminInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(Interceptor.class);
 
@@ -22,13 +22,14 @@ public class MyInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         Member info = (Member)session.getAttribute("loginUser");
 
-        if(info==null){
-            logger.info(">> interceptor catch!!! userId is null.. ");
-            session.invalidate();
-            response.sendRedirect(request.getContextPath() + "/errors");
-            throw new RuntimeException("No access");
+        if(info!=null){
+            if(info.getRole().toString().equals("ADMIN")){
+                return true;
+            }else{
+                throw new RuntimeException("ADMIN 계정이 아닙니다.");
+            }
         }
 
-        return true;
+        throw new RuntimeException("ADMIN / No access");
     }
 }

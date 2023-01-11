@@ -30,12 +30,13 @@ public class AgendaService {
     }
 
     //하나의 안건 조회
-    public Optional<Agenda> findById(Long id){
-        return agendaRepository.findById(id);
+    public Optional<AgendaDto> findById(Long id) {
+        return agendaRepository.findById(id).map(AgendaDto::new);
     }
 
-    //현재 투표중인 안건인지
-    public Optional<Agenda> checkAgendaStatus(Long id){
-        return agendaRepository.findById(id);
+    //안건 삭제
+    @Transactional
+    public void deleteAgenda(Long agendaId){
+        agendaRepository.deleteById(agendaId);
     }
 }

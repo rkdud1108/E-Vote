@@ -1,11 +1,11 @@
 package com.evoting.domain;
 
+import com.evoting.domain.enums.Role;
+import com.mysql.cj.log.Log;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,15 +30,18 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "writer")
-    private List<Agenda> agendas =new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<Vote> agendas =new ArrayList<>();
+
+    private Long voteCount;
 
     @Builder
-    public Member(Long id, String name, String pwd, Role role, List<Agenda> agendas) {
+    public Member(Long id, String name, String pwd, Role role
+            , Long voteCount) {
         this.id = id;
         this.name = name;
         this.pwd = pwd;
         this.role = role;
-        this.agendas = agendas;
+        this.voteCount = voteCount;
     }
 }
