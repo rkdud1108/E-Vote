@@ -19,10 +19,6 @@ public class Agenda {
     @Column(name="agenda_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member writer;
-
     private String title;
     private String contents;
 
@@ -38,9 +34,8 @@ public class Agenda {
     private List<Vote> votes;
 
     @Builder
-    public Agenda(Long id, Member writer, String title, String contents, AgendaStatus agendaStatus, AgendaType agendaType, Long maxCount){
+    public Agenda(Long id, String title, String contents, AgendaStatus agendaStatus, AgendaType agendaType, Long maxCount){
         this.id = id;
-        this.writer = writer;
         this.title = title;
         this.contents = contents;
         this.agendaStatus = agendaStatus;
