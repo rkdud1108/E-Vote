@@ -1,6 +1,5 @@
 package com.evoting.service;
 
-import com.evoting.controller.dto.AgendaDto;
 import com.evoting.controller.dto.MemberDto;
 import com.evoting.domain.Member;
 import com.evoting.repository.MemberRepository;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,5 +53,10 @@ public class MemberService {
             return false;
         }
         return true;
+    }
+
+    //회원 의결권 부여
+    public void giveVote(int cnt, String name){
+        memberRepository.giveVote(cnt,name);
     }
 }

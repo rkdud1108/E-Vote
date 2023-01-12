@@ -14,12 +14,14 @@ public class MemberDto {
     private String pwd;
     private String name;
     private Role role;
+    private Long voteCount;
 
     public MemberDto(Member member) {
         memberId = member.getId();
         pwd = member.getPwd();
         name = member.getName();
         role = member.getRole();
+        voteCount = member.getVoteCount();
     }
 
     public Member toEntity(){
@@ -27,6 +29,7 @@ public class MemberDto {
                 .pwd(pwd)
                 .name(name)
                 .role(role)
+                .voteCount(voteCount)
                 .build();
     }
 }

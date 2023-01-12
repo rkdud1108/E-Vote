@@ -1,7 +1,6 @@
 package com.evoting.domain;
 
 import com.evoting.domain.enums.Role;
-import com.mysql.cj.log.Log;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +22,7 @@ public class Member {
     private Long id;
 
     @NotNull(message = "name은 필수 값입니다.")
+    @Column(nullable = false)
     private String name;
     @NotNull(message = "pwd는 필수 값입니다.")
     private String pwd;
@@ -31,7 +31,7 @@ public class Member {
     private Role role;
 
     @OneToMany(mappedBy = "member")
-    private List<Vote> agendas =new ArrayList<>();
+    private List<Vote> votes =new ArrayList<>();
 
     private Long voteCount;
 

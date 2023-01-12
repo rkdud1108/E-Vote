@@ -13,15 +13,14 @@ public class VoteDto {
     private Long id;
     private VoteType voteType;
     private Long count;
-    private Agenda agenda;
     private Long agendaId;
-    private Member voter;
+    private Long memberId;
 
     public VoteDto(Vote vote) {
         id = vote.getId();
+//        memberId = vote.getMember().getId();
         voteType = vote.getVoteType();
         count = vote.getCount();
-        agenda = vote.getAgenda();
     }
 
     public Vote toEntity(){
@@ -29,7 +28,6 @@ public class VoteDto {
                 .id(id)
                 .voteType(voteType)
                 .count(count)
-                .agenda(agenda)
                 .build();
     }
 

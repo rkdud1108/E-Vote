@@ -6,7 +6,10 @@ import com.evoting.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,15 +18,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class MemeberController {
+public class MemberController {
     private final MemberService memberService;
-
-    //화면 조회
-    @GetMapping("/members/new")
-    public String createForm(Model model, @RequestBody MemberDto request){
-        model.addAttribute("memberForm", request);
-        return "members/createMemberForm";
-    }
 
     //정보를 등록
     @PostMapping("/members/new")
@@ -61,4 +57,11 @@ public class MemeberController {
         session.invalidate();
         return "logout success";
     }
+
+//    //회원 의결권 부여
+//    public String giveVote(@PathVariable Long id){
+//
+//    }
+
+
 }

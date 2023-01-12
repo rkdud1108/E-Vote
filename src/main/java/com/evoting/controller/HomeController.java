@@ -1,6 +1,5 @@
 package com.evoting.controller;
 
-import com.evoting.domain.Agenda;
 import com.evoting.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

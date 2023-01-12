@@ -19,20 +19,20 @@ public class AgendaController {
     //관리자 안건 등록
     @PostMapping("/agenda")
     public ResponseEntity<AgendaDto> write(@RequestBody AgendaDto agendaDto) {
-        agendaService.write(agendaDto);
-
+        Long agendaId = agendaService.write(agendaDto);
+        agendaDto.setId(agendaId);
         return new ResponseEntity(agendaDto, HttpStatus.OK);
     }
 
     //모든 안건 조회
-    @GetMapping("/agenda")
+    @GetMapping("/agendas")
     public List<AgendaDto> agendaList() {
         List<AgendaDto> result = agendaService.findAll();
         return result;
     }
 
     //단건 조회(id로 조회)
-    @GetMapping("/agenda/{id}")
+    @GetMapping("/agendas/{id}")
     public Optional<AgendaDto> agendaOne(@PathVariable("id") Long id) {
         Optional<AgendaDto> result = agendaService.findById(id);
         return result;
@@ -40,7 +40,7 @@ public class AgendaController {
 
     //ADMIN
     //관리자 안건 삭제
-    @DeleteMapping("/agenda/{id}")
+    @DeleteMapping("/agendas/{id}")
     public void deleteAgenda(@PathVariable("id") Long id){
         agendaService.deleteAgenda(id);
     }

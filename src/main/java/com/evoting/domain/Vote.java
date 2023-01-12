@@ -33,10 +33,11 @@ public class Vote {
 
 
     @Builder
-    public Vote(Long id, VoteType voteType, Long count, Agenda agenda) {
+    public Vote(Long id, VoteType voteType, Long count, Agenda agenda, Member member) {
         this.id = id;
         this.voteType = voteType;
         this.count = count;
         this.agenda = agenda;
+        this.member = member;
     }
 }
