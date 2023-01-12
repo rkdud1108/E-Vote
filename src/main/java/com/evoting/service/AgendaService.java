@@ -19,8 +19,18 @@ public class AgendaService {
 
     //안건 저장
     @Transactional
-    public Long write(AgendaDto params){
-        Agenda entity = agendaRepository.save(params.toEntity());
+    public Long write(AgendaDto agendaDto){
+
+        //안건 타입이 FREE/ LIMIT인지 판별
+        String nowType = agendaDto.getAgendaType().toString();
+
+        //자유경쟁인 경우
+        if(nowType.equals("FREE")){
+            agendaDto.setMaxCount(null);//count 컬럼 사용하지 않는다.
+        }
+        //agendaRepository.findById(agendaDto.getAgendaId()).orElseThrow();
+
+        Agenda entity = agendaRepository.save(agendaDto.toEntity());
         return entity.getId();
     }
 

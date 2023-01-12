@@ -22,15 +22,18 @@ public class Agenda {
     private String title;
     private String contents;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AgendaStatus agendaStatus;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AgendaType agendaType;
 
+    @Column(nullable = false)
     private Long maxCount;
 
-    @OneToMany(mappedBy = "agenda")
+    @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL)
     private List<Vote> votes;
 
     @Builder

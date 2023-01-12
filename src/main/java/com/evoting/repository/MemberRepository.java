@@ -13,8 +13,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Member findByName(String name);
 
+//    @Modifying
+//    @Query("update Member m set m.voteCount = :cnt where m.name=:name")
+//    void giveVote(int cnt, String name);
+
     @Modifying
-    @Query("update Member m set m.voteCount = :cnt where m.name=:name")
-    void giveVote(int cnt, String name);
+    @Query("update Member m set m.voteCount = m.voteCount- :voteLimit where m.name=:name")
+    void updateAfterVote(String name, Long voteLimit);
+
 
 }

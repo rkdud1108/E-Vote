@@ -20,8 +20,8 @@ public class AgendaController {
     @PostMapping("/agenda")
     public ResponseEntity<AgendaDto> write(@RequestBody AgendaDto agendaDto) {
         Long agendaId = agendaService.write(agendaDto);
-        agendaDto.setId(agendaId);
-        return new ResponseEntity(agendaDto, HttpStatus.OK);
+        agendaDto.setAgendaId(agendaId);
+        return new ResponseEntity<>(agendaDto, HttpStatus.OK);
     }
 
     //모든 안건 조회

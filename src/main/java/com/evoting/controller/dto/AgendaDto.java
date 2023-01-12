@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class AgendaDto {
-    private Long id;
+    private Long agendaId;
     private String title;
     private String contents;
     private AgendaStatus agendaStatus;
@@ -17,7 +17,7 @@ public class AgendaDto {
     private Long maxCount;
 
     public AgendaDto(Agenda agenda) {
-        id = agenda.getId();
+        agendaId = agenda.getId();
         title = agenda.getTitle();
         contents = agenda.getContents();
         agendaStatus = agenda.getAgendaStatus();
@@ -28,7 +28,7 @@ public class AgendaDto {
     //requset, response 나누면 request에 toEntity 옮겨주면 writer null 해결..?
     public Agenda toEntity(){
         return Agenda.builder()
-                .id(id)
+                .id(agendaId)
                 .title(title)
                 .contents(contents)
                 .agendaStatus(agendaStatus)

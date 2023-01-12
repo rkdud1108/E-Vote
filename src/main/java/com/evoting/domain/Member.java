@@ -21,16 +21,17 @@ public class Member {
     @Column(name="member_id")
     private Long id;
 
-    @NotNull(message = "name은 필수 값입니다.")
     @Column(nullable = false)
     private String name;
-    @NotNull(message = "pwd는 필수 값입니다.")
+
+    @Column(nullable = false)
     private String pwd;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL )
     private List<Vote> votes =new ArrayList<>();
 
     private Long voteCount;

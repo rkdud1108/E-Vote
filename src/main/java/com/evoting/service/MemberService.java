@@ -55,8 +55,8 @@ public class MemberService {
         return true;
     }
 
-    //회원 의결권 부여
-    public void giveVote(int cnt, String name){
-        memberRepository.giveVote(cnt,name);
-    }
+//    //회원 의결권 부여
+//    public void giveVote(int cnt, String name){
+//        memberRepository.giveVote(cnt,name);
+//    }
 }
