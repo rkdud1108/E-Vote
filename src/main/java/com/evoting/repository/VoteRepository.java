@@ -1,8 +1,6 @@
 package com.evoting.repository;
 
-import com.evoting.controller.dto.ResponseVoteInterface;
-import com.evoting.controller.dto.VoteDto;
-import com.evoting.controller.dto.VoteResponseDto;
+import com.evoting.controller.dto.response.ResponseVoteInterface;
 import com.evoting.domain.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

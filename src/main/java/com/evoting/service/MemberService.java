@@ -29,8 +29,8 @@ public class MemberService {
     }
 
     //회원 1명 조회(id)
-    public Member findOne(String memberName){
-        return memberRepository.findByName(memberName);
+    public Member findOne(String username){
+        return memberRepository.findByName(username);
     }
 
     //Spring Security

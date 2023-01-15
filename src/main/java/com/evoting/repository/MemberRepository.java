@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    //List<Member> findAllByName(String name);//중복된 이름찾기
-
     Member findByName(String name);
 
     //name을 기준으로 member정보를 가져올 때 권한 정보도 같이 가져옴

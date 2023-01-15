@@ -1,4 +1,4 @@
-package com.evoting.controller.dto;
+package com.evoting.controller.dto.response;
 
 import com.evoting.domain.Vote;
 import com.evoting.domain.enums.VoteType;

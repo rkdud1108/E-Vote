@@ -1,8 +1,8 @@
 package com.evoting.service;
 
-import com.evoting.controller.dto.ResponseVoteInterface;
+import com.evoting.controller.dto.response.ResponseVoteInterface;
 import com.evoting.controller.dto.VoteDto;
-import com.evoting.controller.dto.VoteResponseDto;
+import com.evoting.controller.dto.response.VoteResponseDto;
 import com.evoting.domain.Agenda;
 import com.evoting.domain.Member;
 import com.evoting.domain.Vote;
@@ -32,7 +32,7 @@ public class VoteService {
     //안건 id에 따라 투표하기
     //자유 경쟁만 구현
     @Transactional
-    public Vote voteToAgenda(VoteDto voteDto){
+    public Long voteToAgenda(VoteDto voteDto){
 
         Agenda agenda = agendaRepository.findById(voteDto.getAgendaId()).orElseThrow(IllegalArgumentException::new);
 
@@ -59,10 +59,10 @@ public class VoteService {
             voteDto.setCount(voteReq);
         }
 
-        //FREE, LIMIT에 따라 투표 방식 달라짐
+        //FREE, LIMITED에 따라 투표 방식 달라짐
         AgendaType nowType = agenda.getAgendaType();
         //제한 경쟁이라면 agenda에서 max_count 따져줘야한다.
-        if(nowType==AgendaType.LIMIT){
+        if(nowType==AgendaType.LIMITED){
             Integer agendaLimit = agenda.getMaxCount();
             if(agendaLimit<voteReq){
                 voteReq = agendaLimit;
@@ -81,7 +81,7 @@ public class VoteService {
 
         Vote entity = voteRepository.save(voteDto.toEntity());
 
-        return entity;
+        return entity.getId();
     }
 
     //안건 id에 따라 전체 투표결과 가져오기

@@ -1,18 +1,21 @@
 package com.evoting.controller;
 
-import com.evoting.controller.dto.ResponseVoteInterface;
+import com.evoting.controller.dto.response.ResponseVoteInterface;
 import com.evoting.controller.dto.VoteDto;
-import com.evoting.controller.dto.VoteResponseDto;
-import com.evoting.controller.dto.response.BaseResponse;
+import com.evoting.controller.dto.response.VoteResponseDto;
 import com.evoting.service.VoteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class VoteController {
     private final VoteService voteService;
@@ -20,9 +23,9 @@ public class VoteController {
     //투표 하기
     @PostMapping("/vote")
     @PreAuthorize("hasAnyRole('ROLE_USER')")
-    public BaseResponse write(@RequestBody VoteDto voteDto, HttpServletRequest request){
-        voteService.voteToAgenda(voteDto);
-        return new BaseResponse();
+    public ResponseEntity write(@RequestBody VoteDto voteDto){
+        //return new BaseResponse();
+        return ResponseEntity.ok().body(voteService.voteToAgenda(voteDto));
     }
 
     //안건 id에 따라 전체 투표결과 가져오기(유저)

@@ -4,16 +4,15 @@ import com.evoting.controller.dto.AgendaDto;
 import com.evoting.controller.dto.response.BaseResponse;
 import com.evoting.service.AgendaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class AgendaController {
     private final AgendaService agendaService;
@@ -24,23 +23,23 @@ public class AgendaController {
     public ResponseEntity<AgendaDto> write(@RequestBody AgendaDto agendaDto) {
         Long agendaId = agendaService.write(agendaDto);
         agendaDto.setAgendaId(agendaId);
-        return new ResponseEntity<>(agendaDto, HttpStatus.OK);
+        return ResponseEntity.ok().body(agendaDto);
     }
 
     //모든 안건 조회
     @GetMapping("/agendas")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
-    public List<AgendaDto> agendaList() {
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    public ResponseEntity<List<AgendaDto>> agendaList() {
         List<AgendaDto> result = agendaService.findAll();
-        return result;
+        return ResponseEntity.ok().body(result);
     }
 
     //단건 조회(id로 조회)
     @GetMapping("/agendas/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
-    public Optional<AgendaDto> agendaOne(@PathVariable("id") Long id) {
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    public ResponseEntity<Optional<AgendaDto>> agendaOne(@PathVariable("id") Long id) {
         Optional<AgendaDto> result = agendaService.findById(id);
-        return result;
+        return ResponseEntity.ok().body(result);
     }
 
     //ADMIN
