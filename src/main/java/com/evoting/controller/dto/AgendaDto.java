@@ -14,7 +14,7 @@ public class AgendaDto {
     private String contents;
     private AgendaStatus agendaStatus;
     private AgendaType agendaType;
-    private Long maxCount;
+    private Integer maxCount;
 
     public AgendaDto(Agenda agenda) {
         agendaId = agenda.getId();

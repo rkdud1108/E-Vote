@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class VoteDto {
     private Long id;
     private VoteType voteType;
-    private Long count;
+    private Integer count;
     private Long agendaId;
     private Agenda agenda;
     private String memberName;

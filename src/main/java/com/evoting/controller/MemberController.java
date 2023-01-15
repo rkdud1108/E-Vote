@@ -4,64 +4,50 @@ import com.evoting.controller.dto.MemberDto;
 import com.evoting.domain.Member;
 import com.evoting.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
 
-    //정보를 등록
-    @PostMapping("/members/new")
-    public Long createMember(@RequestBody @Valid MemberDto request, BindingResult result){
-        if(result.hasErrors()){
-            throw new IllegalStateException("유효성 검사에 실패하였습니다.");
-        }
-        return memberService.join(request);
-    }
-
     //회원 목록 조회
-    @GetMapping(value = "/members")
-    public List<MemberDto> memberList(Model model){
+    @GetMapping()
+    public List<MemberDto> memberList(){
         List<MemberDto> result = memberService.findAll();
         return result;
     }
 
-    //회원 로그인
-    @PostMapping("/login")
-    public String loginId(@RequestBody MemberDto memberDto, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
-        if(memberService.login(memberDto)){
-            Member nowMem = memberService.findOne(memberDto.getName());
-            session.setAttribute("loginUser", nowMem);
-            return "login Success";
-        }
-        return "login Fail";
+    //spring security 적용
+    @PostMapping("/signup")
+    public ResponseEntity<Member> signup(@Valid @RequestBody MemberDto memberDto){
+        return ResponseEntity.ok(memberService.signup(memberDto));
     }
 
-    //회원 로그아웃
-    @GetMapping("/logout")
-    public String logoutId(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        return "logout success";
+    @PostMapping("/admin/signup")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public ResponseEntity<Member> signupAdmin(@Valid @RequestBody MemberDto userDto){
+        return ResponseEntity.ok(memberService.signup(userDto));
     }
 
-//    //회원 의결권 부여
-//    public String giveVote(@PathVariable Long id){
-//
-//    }
+    //USER, ADMIN 둘 모두에게 권한 허용
+    @GetMapping("/user")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    public ResponseEntity<Member> getMyUserInfo(){
+        return ResponseEntity.ok(memberService.getMyUserWithAuthorities().get());
+    }
 
+    //ADMIN에게만 권한 허용
+    @GetMapping("/user/{username}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public ResponseEntity<Member> getUserInfo(@PathVariable String username){
+        return ResponseEntity.ok(memberService.getUserWithAuthorities(username).get());
+    }
 
 }

@@ -1,19 +1,17 @@
 package com.evoting.domain;
 
-import com.evoting.domain.enums.Role;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Member {
 
     @Id
@@ -28,21 +26,16 @@ public class Member {
     private String pwd;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private Integer voteCount;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL )
-    private List<Vote> votes =new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Vote> votes;
 
-    private Long voteCount;
+    @ManyToMany
+    @JoinTable(
+            name="user_auth",
+            joinColumns = {@JoinColumn(name="member_id", referencedColumnName = "member_id")},
+            inverseJoinColumns = {@JoinColumn(name="authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
 
-    @Builder
-    public Member(Long id, String name, String pwd, Role role
-            , Long voteCount) {
-        this.id = id;
-        this.name = name;
-        this.pwd = pwd;
-        this.role = role;
-        this.voteCount = voteCount;
-    }
 }

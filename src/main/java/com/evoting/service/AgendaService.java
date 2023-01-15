@@ -1,6 +1,7 @@
 package com.evoting.service;
 
 import com.evoting.controller.dto.AgendaDto;
+import com.evoting.controller.dto.response.BaseResponse;
 import com.evoting.domain.Agenda;
 import com.evoting.repository.AgendaRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,5 +49,11 @@ public class AgendaService {
     @Transactional
     public void deleteAgenda(Long agendaId){
         agendaRepository.deleteById(agendaId);
+    }
+
+    //안건 종료
+    @Transactional
+    public void updateCloseAgenda(Long agendaId) {
+        agendaRepository.updateCloseAgenda(agendaId);
     }
 }

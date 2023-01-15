@@ -10,15 +10,14 @@ import lombok.NoArgsConstructor;
 public class VoteResponseDto {
     private Long id;
     private VoteType voteType;
-    private Long count;
-    private Long agendaId;
+    private Integer cnt;
     private String memberName;
 
     public VoteResponseDto(Vote vote) {
         id = vote.getId();
         voteType = vote.getVoteType();
-        count = vote.getCount();
-        agendaId = vote.getAgenda().getId();
+        cnt = vote.getCount();
         memberName = vote.getMember().getName();
     }
 }
+

@@ -1,16 +1,15 @@
 package com.evoting.domain;
 
 import com.evoting.domain.enums.VoteType;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Vote {
 
     @Id
@@ -21,7 +20,7 @@ public class Vote {
     @Enumerated(EnumType.STRING)
     private VoteType voteType;
 
-    private Long count;
+    private Integer count;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "agenda_id")
@@ -31,13 +30,4 @@ public class Vote {
     @JoinColumn(name = "member_id")
     private Member member;
 
-
-    @Builder
-    public Vote(Long id, VoteType voteType, Long count, Agenda agenda, Member member) {
-        this.id = id;
-        this.voteType = voteType;
-        this.count = count;
-        this.agenda = agenda;
-        this.member = member;
-    }
 }
