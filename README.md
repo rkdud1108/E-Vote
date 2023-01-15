@@ -38,10 +38,11 @@
         - ABSTENTION(기권)
 
         
-## Add your files
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## API 명세서
+- [API 명세서](https://documenter.getpostman.com/view/25239459/2s8ZDSd5Zz)
+
+***
 
 ```
 cd existing_repo
