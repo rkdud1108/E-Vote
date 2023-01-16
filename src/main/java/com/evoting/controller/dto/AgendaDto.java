@@ -3,8 +3,11 @@ package com.evoting.controller.dto;
 import com.evoting.domain.Agenda;
 import com.evoting.domain.enums.AgendaStatus;
 import com.evoting.domain.enums.AgendaType;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +18,8 @@ public class AgendaDto {
     private AgendaStatus agendaStatus;
     private AgendaType agendaType;
     private Integer maxCount;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     public AgendaDto(Agenda agenda) {
         agendaId = agenda.getId();
@@ -23,9 +28,11 @@ public class AgendaDto {
         agendaStatus = agenda.getAgendaStatus();
         agendaType = agenda.getAgendaType();
         maxCount = agenda.getMaxCount();
+        startDate = agenda.getStartDate();
+        endDate = agenda.getEndDate();
+
     }
 
-    //requset, response 나누면 request에 toEntity 옮겨주면 writer null 해결..?
     public Agenda toEntity(){
         return Agenda.builder()
                 .id(agendaId)
@@ -34,6 +41,8 @@ public class AgendaDto {
                 .agendaStatus(agendaStatus)
                 .agendaType(agendaType)
                 .maxCount(maxCount)
+                .startDate(startDate)
+                .endDate(endDate)
                 .build();
     }
 }

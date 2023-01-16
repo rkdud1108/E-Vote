@@ -33,6 +33,4 @@ public class VoteDto {
                 .member(member)
                 .build();
     }
-
-
 }

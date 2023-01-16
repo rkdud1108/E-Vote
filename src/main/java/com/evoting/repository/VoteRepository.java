@@ -20,8 +20,6 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
             "group by v.voteType")
     List<ResponseVoteInterface> findAgendaIdResult(Long id);
 
-    //Vote findByMember_Name(String name);
-
     //해당 안건,멤버가 투표한 합계 계산
     @Query("select coalesce(sum(v.count),0) as cnt from Vote v " +
             "where v.member.id = :memberId " +

@@ -24,23 +24,22 @@ public class VoteController {
     @PostMapping("/vote")
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResponseEntity write(@RequestBody VoteDto voteDto){
-        //return new BaseResponse();
         return ResponseEntity.ok().body(voteService.voteToAgenda(voteDto));
     }
 
     //안건 id에 따라 전체 투표결과 가져오기(유저)
-    @GetMapping("/vote/{id}")
+    @GetMapping("/votes/{id}")
     @PreAuthorize("hasAnyRole('ROLE_USER')")
-    public List<ResponseVoteInterface> findAgendaIdResult(@PathVariable Long id){
+    public ResponseEntity findAgendaIdResult(@PathVariable Long id){
         List<ResponseVoteInterface> result= voteService.findAgendaIdResult(id);
-        return result;
+        return ResponseEntity.ok().body(result);
     }
 
     //안건 id에 따라 전체 투표결과 가져오기(관리자)
-    @GetMapping("/vote/{id}/admin")
+    @GetMapping("/votes/admin/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public List<VoteResponseDto> findAdminAgendaIdResult(@PathVariable Long id){
+    public ResponseEntity findAdminAgendaIdResult(@PathVariable Long id){
         List<VoteResponseDto> result= voteService.findAdminAgendaIdResult(id);
-        return result;
+        return ResponseEntity.ok().body(result);
     }
 }

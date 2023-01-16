@@ -1,7 +1,6 @@
 package com.evoting.controller;
 
 import com.evoting.controller.dto.AgendaDto;
-import com.evoting.controller.dto.response.BaseResponse;
 import com.evoting.service.AgendaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -46,19 +45,24 @@ public class AgendaController {
     //관리자 안건 삭제
     @DeleteMapping("/agendas/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public BaseResponse deleteAgenda(@PathVariable("id") Long id){
+    public ResponseEntity deleteAgenda(@PathVariable("id") Long id){
+        if(!agendaService.findById(id).isPresent()){
+            throw  new RuntimeException("안건ID가 존재하지 않습니다.");
+        }
         agendaService.deleteAgenda(id);
-        return new BaseResponse();
+        return ResponseEntity.ok().body("SUCCESS");
     }
 
     //ADMIN
     //관리자 안건 종료
     @PutMapping("/agendas/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public BaseResponse closeAgenda(@PathVariable("id") Long id){
+    public ResponseEntity closeAgenda(@PathVariable("id") Long id){
+        if(!agendaService.findById(id).isPresent()){
+            throw  new RuntimeException("안건ID가 존재하지 않습니다.");
+        }
         agendaService.updateCloseAgenda(id);
-        return new BaseResponse();
-
+        return ResponseEntity.ok().body("SUCCESS");
     }
 
 }

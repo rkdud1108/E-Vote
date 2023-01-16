@@ -11,6 +11,7 @@ import com.evoting.domain.enums.AgendaType;
 import com.evoting.repository.AgendaRepository;
 import com.evoting.repository.MemberRepository;
 import com.evoting.repository.VoteRepository;
+import com.evoting.util.VoteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -79,7 +80,9 @@ public class VoteService {
         voteDto.setAgenda(agenda);
         voteDto.setMember(member);
 
-        Vote entity = voteRepository.save(voteDto.toEntity());
+        //MapStruct적용
+        Vote entity = voteRepository.save(VoteMapper.INSTANCE.voteDtoToEntity(voteDto));
+        //Vote entity = voteRepository.save(voteDto.toEntity());
 
         return entity.getId();
     }
