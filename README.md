@@ -13,7 +13,7 @@
     - jsonwebtoken(JWT)
 
 ## ERD 
-![ERD_수정](/uploads/414babe198a57a56e7e8f85cbd0f07b6/ERD_수정.png)
+![ERD_날짜추가](/uploads/ab6214c30b7a3a1dd1a4af520bceff42/ERD_날짜추가.png)
 
 ## 도메인 세부 설명
 - **Authority**
@@ -42,22 +42,10 @@
 ## API 명세서
 - [API 명세서](https://documenter.getpostman.com/view/25239459/2s8ZDSd5Zz)
 
-***
+## Feedback
+- REST API 설계 규칙
+- toEntity : MapStruct 이용한 Entity <-> DTO 변환, ModelMapper
 
-```
-cd existing_repo
-git remote add origin http://mentoring-gitlab.gabia.com/mentee/mentee_2023.01/sandbox/jenna_e-voting.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](http://mentoring-gitlab.gabia.com/mentee/mentee_2023.01/sandbox/jenna_e-voting/-/settings/integrations)
-
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## 개선점
+- 동시성 구현
+- 예외 처리 : null, Bad Request 등...
